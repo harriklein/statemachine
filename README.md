@@ -1,9 +1,10 @@
 # statemachine
 
 
-Basic of State Machine with option to change strategy
+State Machine with option to change strategy per state
 
-Each state is inherited from TradingStrategy class, which implements 3 events: onEnter, onExecute, onExit
+Each state is inherited from TradingStrategy class, which implements 3 events: onEnter, onExecute, onExit.
+Further, you can access the previousState, currentState and nextState through the variable stateMachine.
 
 ```python
 class TradingStrategy:
@@ -19,8 +20,6 @@ class TradingStrategy:
    def onExecute(self): pass
    def onExit(self): pass
 ```
-
-Into each TradingStrategy class events, you can access the previousState, currentState and nextState trough the variable stateMachine.
 
 
 The state machine implements 3 states ("idle", "onHold" and "inTrade") and you can specify a custom TradingStrategy class when create the StateMachine.
@@ -41,8 +40,8 @@ To change the state you just need to return the state on the events. e.g.:
       return "idle"
 ```
 
-To run the StateMachine, use the method run(), which you can define the initial state as parameter ("idle" by default)
-The state machine implements a loop on the event onExecute until you change to a new state 
+Use the method run() on StateMachine class to run the state machine,  which you can define the initial state as parameter ("idle" by default).
+The state machine implements a loop on the event onExecute until you change to a new state. 
 
 ```python
    tradingMachine = TradingStateMachine(
@@ -56,6 +55,7 @@ The state machine implements a loop on the event onExecute until you change to a
 
 In the example above, we create a new state machine with a basic strategy loop among the 3 states.
 
+Code of Basic Trading Stragegy
 ```python
 import TradingStrategy
 import time
