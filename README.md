@@ -3,7 +3,7 @@
 
 State Machine with option to change strategy per state
 
-Each state is inherited from TradingStrategy class, which implements 3 events: onEnter, onExecute, onExit.
+Each custom trading strategy must be inherited from TradingStrategy class, which implements 3 events: onEnter, onExecute, onExit.
 Further, you can access the previousState, currentState and nextState through the variable stateMachine.
 
 ```python
