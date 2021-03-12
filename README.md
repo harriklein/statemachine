@@ -74,7 +74,7 @@ class Idle(TradingStrategy.TradingStrategy):
    name = "Basic Idle"
 
    def onEnter(self):
-      logEvent(self, "Enter  :")
+      logEvent(self, "----------\nEnter  :")
 
       self.count = 0
    
@@ -100,7 +100,7 @@ class OnHold(TradingStrategy.TradingStrategy):
    name = "Basic OnHold"
 
    def onEnter(self):
-      logEvent(self, "Enter  :")
+      logEvent(self, "----------\nEnter  :")
    
    def onExecute(self):
       logEvent(self, "Execute:")
@@ -117,7 +117,7 @@ class InTrade(TradingStrategy.TradingStrategy):
    name = "Basic InTrade"
 
    def onEnter(self):
-      logEvent(self, "Enter  :")
+      logEvent(self, "----------\nEnter  :")
    
    def onExecute(self):
       logEvent(self, "Execute:")
@@ -130,16 +130,20 @@ class InTrade(TradingStrategy.TradingStrategy):
 
 output:
 ```
-Enter  : Basic Idle             prv: idle       cur: idle       nxt: idle
-Execute: Basic Idle             prv: idle       cur: idle       nxt: idle
-Execute: Basic Idle             prv: idle       cur: idle       nxt: idle
-Execute: Basic Idle             prv: idle       cur: idle       nxt: idle
-Exit   : Basic Idle             prv: idle       cur: idle       nxt: onHold
+----------
+Enter  : Basic Idle             prv: inTrade    cur: idle       nxt: idle
+Execute: Basic Idle             prv: inTrade    cur: idle       nxt: idle
+Execute: Basic Idle             prv: inTrade    cur: idle       nxt: idle
+Execute: Basic Idle             prv: inTrade    cur: idle       nxt: idle
+Exit   : Basic Idle             prv: inTrade    cur: idle       nxt: onHold
+----------
 Enter  : Basic OnHold           prv: idle       cur: onHold     nxt: onHold
 Execute: Basic OnHold           prv: idle       cur: onHold     nxt: onHold
 Exit   : Basic OnHold           prv: idle       cur: onHold     nxt: inTrade
+----------
 Enter  : Basic InTrade          prv: onHold     cur: inTrade    nxt: inTrade
 Execute: Basic InTrade          prv: onHold     cur: inTrade    nxt: inTrade
 Exit   : Basic InTrade          prv: onHold     cur: inTrade    nxt: idle
+----------
 ```
 

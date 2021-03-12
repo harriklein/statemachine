@@ -1,7 +1,6 @@
 import TradingStrategy
 import time
 
-
 def logEvent(self, prefix):
    print(prefix, self.name, "\t", 
       "\tprv:", self.stateMachine.previousState, 
@@ -16,7 +15,7 @@ class Idle(TradingStrategy.TradingStrategy):
    name = "Basic Idle"
 
    def onEnter(self):
-      logEvent(self, "Enter  :")
+      logEvent(self, "----------\nEnter  :")
 
       self.count = 0
    
@@ -42,7 +41,7 @@ class OnHold(TradingStrategy.TradingStrategy):
    name = "Basic OnHold"
 
    def onEnter(self):
-      logEvent(self, "Enter  :")
+      logEvent(self, "----------\nEnter  :")
    
    def onExecute(self):
       logEvent(self, "Execute:")
@@ -59,7 +58,7 @@ class InTrade(TradingStrategy.TradingStrategy):
    name = "Basic InTrade"
 
    def onEnter(self):
-      logEvent(self, "Enter  :")
+      logEvent(self, "----------\nEnter  :")
    
    def onExecute(self):
       logEvent(self, "Execute:")
