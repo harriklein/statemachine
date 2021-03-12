@@ -1,18 +1,21 @@
+import signal
 import TradingStrategy
 import TradingStrategyBasic
 
 class TradingStateMachine:
+   stopped       = False
    previousState = None
    currentState  = None
    nextState     = None
 
    ### Initialize the Trading Machine with given Strategies
    def __init__(self, strategyIdle = None, strategyOnHold = None, strategyInTrade = None):
-      if strategyIdle is None   : self.strategyIdle = TradingStrategy.TradingStrategyNone(self)
-      else                      : self.strategyIdle = strategyIdle(self)
+      self.stopped = False
+      if strategyIdle    is None: self.strategyIdle    = TradingStrategy.TradingStrategyNone(self)
+      else                      : self.strategyIdle    = strategyIdle(self)
 
-      if strategyOnHold is None : self.strategyOnHold = TradingStrategy.TradingStrategyNone(self)
-      else                      : self.strategyOnHold = strategyOnHold(self)
+      if strategyOnHold  is None: self.strategyOnHold  = TradingStrategy.TradingStrategyNone(self)
+      else                      : self.strategyOnHold  = strategyOnHold(self)
 
       if strategyInTrade is None: self.strategyInTrade = TradingStrategy.TradingStrategyNone(self)
       else                      : self.strategyInTrade = strategyInTrade(self)
@@ -38,7 +41,7 @@ class TradingStateMachine:
       if state not in ["idle", "onHold", "inTrade"]: state = self.currentState
 
       # Loop while it doesn't change the state
-      while self.currentState == self.nextState:
+      while (self.currentState == self.nextState) and (not self.stopped):
          # call onExecute
          if   self.currentState == "idle"   : state = self.strategyIdle.onExecute()
          elif self.currentState == "onHold" : state = self.strategyOnHold.onExecute()
@@ -57,8 +60,11 @@ class TradingStateMachine:
       self.previousState = self.currentState
       self.currentState  = self.nextState
 
-      return True
+      return not self.stopped
 
+   # Graceful stop
+   def stop(self, signal, frame):
+      self.stopped = True
 
 
 ###
@@ -68,5 +74,7 @@ if __name__ == "__main__":
       TradingStrategyBasic.OnHold,
       TradingStrategyBasic.InTrade,
    )
+   signal.signal(signal.SIGINT , tradingMachine.stop)
+   signal.signal(signal.SIGTERM, tradingMachine.stop)
    while tradingMachine.run(): 
       pass
