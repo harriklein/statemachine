@@ -27,17 +27,16 @@ To change the state you just need to return the state on the events. e.g.:
 
 ```python
    def onEnter(self):
-      print("\nEnter  :", self.name, "\t", 
-         "\tprv:", self.stateMachine.previousState, 
-         "\tcur:", self.stateMachine.currentState, 
-         "\tnxt:", self.stateMachine.nextState
-      )       
       # Yes, it's possible to change the state on the onEnter event. 
       # It avoids onExecute event, but triggers onExit event.
       return "onHold"
-   
+
    def onExecute(self):
-      return "idle"
+      if finished:
+          # Change to "idle" state
+          return "idle"
+      # Keep current state
+      return
 ```
 
 Use the method run() on StateMachine class to run the state machine,  which you can define the initial state as parameter ("idle" by default).
