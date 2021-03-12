@@ -2,13 +2,13 @@ import TradingStrategy
 import time
 
 ###
-#  IDLE
+#  IDLE 
 ###
 class Idle(TradingStrategy.TradingStrategy):
    name = "Basic Idle"
 
    def onEnter(self):
-      print("Enter  :", self.name, "\t", 
+      print("\nEnter  :", self.name, "\t", 
          "\tprv:", self.stateMachine.previousState, 
          "\tcur:", self.stateMachine.currentState, 
          "\tnxt:", self.stateMachine.nextState
@@ -20,6 +20,7 @@ class Idle(TradingStrategy.TradingStrategy):
          "\tcur:", self.stateMachine.currentState, 
          "\tnxt:", self.stateMachine.nextState
       )
+      # Change to "onHold" State
       return "onHold"
    
    def onExit(self):
@@ -48,6 +49,7 @@ class OnHold(TradingStrategy.TradingStrategy):
          "\tcur:", self.stateMachine.currentState, 
          "\tnxt:", self.stateMachine.nextState
       )
+      # Change to "inTrade" State
       return "inTrade"
    
    def onExit(self):
@@ -78,7 +80,10 @@ class InTrade(TradingStrategy.TradingStrategy):
       )
       time.sleep(1)
       self.count = self.count + 1
-      if self.count < 3: return 
+      if self.count < 3: 
+         # Force exit but Keep in the current state ("inTrade") 
+         return 
+      # Change to "idle" State
       return "idle"
    
    def onExit(self):

@@ -7,6 +7,8 @@ class TradingStrategy:
    def __init__(self, stateMachine = None):
       self.stateMachine = stateMachine
 
+   # Events
+   #   return: Next State. Default: Keep same State 
    def onEnter(self): pass
    def onExecute(self): pass
    def onExit(self): pass
