@@ -25,7 +25,7 @@ class Idle(TradingStrategy.TradingStrategy):
       self.count = self.count + 1
       if self.count < 3: 
          time.sleep(1)
-         # Force exit but Keep in the current state ("inTrade") 
+         # Force exit but Keep in the current state ("idle") 
          return 
       
       # Change to "onHold" State
