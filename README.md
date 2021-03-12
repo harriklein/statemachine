@@ -33,7 +33,8 @@ To change the state you just need to return the state on the events. e.g.:
          "\tcur:", self.stateMachine.currentState, 
          "\tnxt:", self.stateMachine.nextState
       )       
-      # Yes, it's possible to change the state on the onEnter event, it avoids onExecute event, but triggers onExit event.
+      # Yes, it's possible to change the state on the onEnter event. 
+      # It avoids onExecute event, but triggers onExit event.
       return "onHold"
    
    def onExecute(self):
